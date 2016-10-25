@@ -84,8 +84,18 @@
       $messageForm.submit(function(e){
         e.preventDefault();
         console.log('submited');
-        socket.emit('send message', $message.val()); //send message
-        $message.val('');
+
+        var translatedData = "";
+
+        var url = "http://localhost:3000/translate?q="+ $message.val();
+        console.log("url: ", url);
+
+        $.getJSON(url,function(data){
+         // console.log("Translated data: ",data);
+          console.log("Translated data: ",data.data);
+          socket.emit('send message', data.data); //send message
+          $message.val('');
+        });       
       });
 
       socket.on('new message', function(data){
