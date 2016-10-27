@@ -15,7 +15,8 @@
 
         var translatedData = "";
 
-        var url = "http://localhost:3000/translate?q="+ $message.val();
+        //var url = "http://localhost:3000/translate?q="+ $message.val();
+	var url = "http://ec2-54-200-183-25.us-west-2.compute.amazonaws.com:3000/translate?q=" + $message.val();
         console.log("url: ", url);
 
         $.getJSON(url,function(data){

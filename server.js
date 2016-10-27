@@ -12,6 +12,7 @@ app.use(express.static('public'));
 
 app.get('/translate',function(req,res,next){
 
+  console.log("called server's translate");
   translatedPHMessage(req.query.q, function(data){
   	res.status(200).json(data);
   });
@@ -92,7 +93,7 @@ function translatedPHMessage(sentence, callback){
     });
     console.log(response.statusCode)//prints the response statuscode...generally 204
     response.on('end', function (){
-        console.log("END: ",JSON.parse(str));
+        console.log("END: ", JSON.parse(str));
         callback(JSON.parse(str));
     });
   });
