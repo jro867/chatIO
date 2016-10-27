@@ -8,6 +8,8 @@ var connections = [];
 server.listen(3000); 
 console.log("server running");
 
+app.use(express.static('public'));
+
 app.get('/translate',function(req,res,next){
 
   translatedPHMessage(req.query.q, function(data){
