@@ -1,9 +1,22 @@
+    /**
+      COMMENT:
+        We are using node to tranlate the msg from each user. Look into the server.js file
+
+        So every time that user enters a msg we grab the msg and use /translate in our server to call 
+        http://api.phteven.io/intakepoint/ and then parse the data and send it back to to the frontend
+        to post the translated msg.
+
+        The rest of the project use node as a server for sockets IO.
+    **/  
+
 var express = require("express");
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var users = [];
 var connections = [];
+
+//READ COMMENTS ABOVE!!
 
 server.listen(3000); 
 console.log("server running");
@@ -18,6 +31,7 @@ app.get('/translate',function(req,res,next){
   });
 
 });
+//READ COMMENTS ABOVE!!
 
 
 app.get('/', function(req,res){
@@ -38,12 +52,10 @@ io.sockets.on('connection', function(socket){
 
 	socket.on('send message', function(data){
 		console.log(data);
-		// translatedPHMessage(data,function(transPH){
-			// io.sockets.emit('new message',{msg:transPH, user: socket.username});
 			io.sockets.emit('new message',{msg:data, user: socket.username});
-		// });
 		
 	});
+  //READ COMMENTS ABOVE!!!
 
 	//new user
 	socket.on('new user',function(data,callback){
@@ -58,7 +70,8 @@ io.sockets.on('connection', function(socket){
 	}
 });
 
-
+//Function use to tranlate the msg posted through the URL
+//READ COMMENTS ABOVE
 function translatedPHMessage(sentence, callback){
 
   var intakepoint = "api.phteven.io";
@@ -66,9 +79,6 @@ function translatedPHMessage(sentence, callback){
   var http = require('http');
   var querystring = require('querystring');
 
-  // var data = querystring.stringify({
-  // 	'text' : 'Stephen is a silly sausage who drinks at starbucks'
-  // });
 
   var data = querystring.stringify({
   	'text' : sentence

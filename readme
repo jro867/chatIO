@@ -1,0 +1,10 @@
+    /**
+      COMMENT:
+        We are using node to tranlate the msg from each user. Look into the server.js file
+
+        So every time that user enters a msg we grab the msg and use /translate in our server to call 
+        http://api.phteven.io/intakepoint/ and then parse the data and send it back to to the frontend
+        to post the translated msg. (lines 25 and function starting in line 75)
+
+        The rest of the project use node as a server for sockets IO.
+    **/  
